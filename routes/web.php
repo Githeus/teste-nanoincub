@@ -20,6 +20,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Rotas protegidas por autenticação 'auth'
 Route::middleware(['auth'])->group(function () {
-  
+    Route::resource('/funcionarios','FuncionarioController');
 });
 
