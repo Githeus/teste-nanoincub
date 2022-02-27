@@ -8,10 +8,9 @@ use NumberFormatter;
 class Funcionario extends Model
 {
     protected $fillable = ['nome_completo','login','senha','saldo_atual'];
-    protected $appends = ['saldo_atual'];
 
-    public function getSaldoAtualAttribute($v){
+    public function saldo_formatado(){
         $fmt = new NumberFormatter( 'pt-BR', NumberFormatter::CURRENCY );
-        return $fmt->formatCurrency($v, "BRL");
+        return $fmt->formatCurrency($this->saldo_atual, "BRL");
     }
 }

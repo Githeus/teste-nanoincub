@@ -3,12 +3,14 @@
     Funcionários
 @endpush
 @section('content')
-
+    <!-- Botão cadastro -->
     <div class="text-right py-2">
         <a href="/funcionarios/create" class="btn btn-primary mr-5">
             Cadastrar novo funcionário
         </a>
     </div>
+
+    <!-- Filtros -->
     <div class="border p-2 col-4">
         <h3>Filtros</h3>
         <div class="d-flex">
@@ -25,10 +27,16 @@
             <a class="btn btn-sm btn-primary nav-link active" href="#">Filtrar</a>
         </nav>
     </div>
+
+    <!-- Feedback das ações -->
     @include('components.feedback')
+
+    <!-- Paginate -->
     <div class="py-2">
         {{$funcionarios->links()}}
     </div>
+
+    <!-- Tabela de listagem de funcionários -->
     <table class="table border shadow table-striped">
         <thead>
             <tr class="bg-info text-center">
@@ -48,21 +56,29 @@
                             Ações
                         </button>
                         <div class="dropdown-menu" aria-labelledby="triggerId">
-                            <a class="dropdown-item" href="#">Visualiza extrato</a>
-                            <a class="dropdown-item" href="#">Editar</a>
-                            <a class="dropdown-item" href="#">Excluir</a>
+                            <a class="dropdown-item" href="#">
+                                Visualiza extrato
+                            </a>
+                            <a class="dropdown-item" href="{{route('funcionarios.edit',$f)}}">
+                                Editar
+                            </a>
+                            <a class="dropdown-item" href="#" style="background-color: #ffcfcf;">
+                                Excluir
+                            </a>
                             
                         </div>
                     </div>
                 <td class="text-center">{{$f->id}}</td>
                 <td class="text-justify">{{$f->nome_completo}}</td>
-                <td class="text-justify">{{$f->saldo_atual}}</td>
+                <td class="text-justify">{{$f->saldo_formatado()}}</td>
                 <td class="text-center">{{date("d/m/Y",strtotime($f->created_at))}}</td>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Paginate -->
     <div class="py-2">
         {{$funcionarios->links()}}
     </div>
