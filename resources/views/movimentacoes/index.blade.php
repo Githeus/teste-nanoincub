@@ -11,16 +11,37 @@
     </div>
 
     <!-- Filtros -->
-    <form id="form-filtros" action="/movimentacoes" method="get" class="border p-2 col-4">
+    <form id="form-filtros" action="/movimentacoes" method="get" class="border p-2 col-6">
         <h3>Filtros</h3>
         <div class="d-flex">
             <div class="flex-fill form-group bg-white d-block p-2">
-                <label class="font-weight-bold">Nome completo</label>
-                <input type="text" id="nome_completo" name="nome_completo" value="{{$nome? $nome:''}}"  class="form-control" >
+                <label class="font-weight-bold">Nome do funcionario</label>
+                <input type="text" id="nome_completo" name="nome_completo" value="{{$nome? $nome:''}}"  class="form-control"  >
             </div>
             <div class="flex-fill form-group bg-white d-block p-2">
                 <label class="font-weight-bold">Data de cadastro</label>
-                <input type="date" id="created_at" name="created_at" value="{{$data? $data:''}}"  class="form-control" >
+                <input type="date" id="created_at" name="created_at" value="{{$data? $data:''}}"  class="form-control"  >
+            </div>
+            <div class="flex-fill form-group bg-white d-block p-2">
+                <label class="font-weight-bold">Tipo de movimentação</label>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" id="radio-todos" name="tipo" value=""  {{$tipo?"":"checked"}}>
+                    Todos
+                  </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="tipo" value="entrada" {{$tipo=='entrada'?"checked":""}}>
+                    Entrada
+                  </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="tipo" value="saida" {{$tipo=='saida'?"checked":""}}>
+                    Saída
+                  </label>
+                </div>
             </div>
         </div>
         <nav class="nav justify-content-center">
@@ -34,14 +55,13 @@
 
     <!-- Paginate -->
     <div class="py-2">
-        {{$movimentacoes->appends(['created_at' => $data,'nome_completo'=>$nome])->links()}}
+        {{$movimentacoes->appends(['created_at' => $data,'nome_completo'=>$nome, 'tipo'=>$tipo])->links()}}
     </div>
 
     <!-- Tabela de listagem de funcionários -->
     <table class="table border shadow table-striped">
         <thead>
             <tr class="bg-info text-center">
-                <th width="10%"></th>
                 <th>ID</th>
                 <th>Tipo</th>
                 <th>Valor</th>
@@ -53,33 +73,13 @@
         <tbody>
             @foreach($movimentacoes as $m)
             <tr>
-                <td>
-                    <div class="dropright">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown">
-                            Ações
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="triggerId">
-                            <a class="dropdown-item" href="#">
-                                Visualiza extrato
-                            </a>
-                            <a class="dropdown-item" href="{{route('funcionarios.edit',$m)}}">
-                                Editar
-                            </a>
-                            <form action="{{route('funcionarios.destroy',$m->id)}}" method="post" onsubmit="return confirm('Você tem certeza que deseja excluir este registro?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="dropdown-item" style="background-color: #ffcfcf;">Excluir</button>
-                            </form>
-                            
-                        </div>
-                    </div>
                 <td class="text-center">{{$m->id}}</td>
                 <td class="text-center">{{$m->tipo_movimentacao}}</td>
                 <td class="text-center">{{$m->valor_formatado()}}</td>
                 <td class="text-center">
                     #{{$m->funcionario->id}} - {{$m->funcionario->nome_completo}}
                 </td>
-                <td class="text-center">
+                <td class="text-justify">
                     {{$m->observacao}}
                 </td>
                 <td class="text-center">
@@ -102,6 +102,7 @@
     function limpar(){
         $('#nome_completo').val("")
         $('#created_at').val("")
+        $('#radio-todos').prop("checked", true);
         $('#form-filtros').submit()
     }
 </script>

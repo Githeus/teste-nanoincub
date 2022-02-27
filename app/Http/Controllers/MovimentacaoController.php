@@ -22,15 +22,26 @@ class MovimentacaoController extends Controller
     {
         $nome = isset($_GET['nome_completo'])? $_GET['nome_completo']:false;
         $data = isset($_GET['created_at'])? $_GET['created_at']:false;
-        /* $funcionarios = Movimentacao::when($nome, function ($query, $nome) {
-                            return $query->where('nome_completo','like', '%'.$nome.'%');
+        $tipo = isset($_GET['tipo'])? $_GET['tipo']:false;
+        $funcionarios = false;
+        if($nome)
+            $funcionarios = Funcionario::where('nome_completo','like', '%'.$nome.'%')->pluck('id')->toArray();
+        //dd($funcionarios);
+        $movimentacoes = Movimentacao::when($funcionarios, function ($query, $funcionarios) {
+                            return $query->whereIn('funcionario_id',$funcionarios);
                         })
                         ->when($data, function ($query, $data) {
                             return $query->whereDate('created_at', $data);
                         })
-                        ->paginate(3); */
-        $movimentacoes = Movimentacao::paginate(5);
-        return view('movimentacoes.index',compact('movimentacoes','nome','data'));
+                        ->when($data, function ($query, $data) {
+                            return $query->whereDate('created_at', $data);
+                        })
+                        ->when($tipo, function ($query, $tipo) {
+                            return $query->where('tipo_movimentacao', $tipo);
+                        })
+                        ->paginate(5); 
+        //$movimentacoes = Movimentacao::paginate(5);
+        return view('movimentacoes.index',compact('movimentacoes','nome','data','tipo'));
     }
 
     /**
