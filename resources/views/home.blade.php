@@ -16,7 +16,7 @@
             <h1 class="text-center">
                 MOVIMENTAÇÕES
             </h1>
-            <a href="#" class="btn btn-info font-weight-bold text-white mx-auto" style="max-width: 50%;">
+            <a href="/movimentacoes" class="btn btn-info font-weight-bold text-white mx-auto" style="max-width: 50%;">
                 Acessar
             </a>
         </div>

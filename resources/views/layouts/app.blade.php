@@ -41,7 +41,7 @@
                         <a href="/funcionarios" class="nav-link active">
                             Funcionários
                         </a>
-                        <a href="/home" class="nav-link active">
+                        <a href="/movimentacoes" class="nav-link active">
                             Movimentações
                         </a>
                     </ul>

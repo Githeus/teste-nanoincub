@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\FuncionarioActions;
+use App\Actions\MovimentacaoActions;
+use App\Funcionario;
+use App\Http\Requests\StoreMovimentacao;
 use App\Movimentacao;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MovimentacaoController extends Controller
 {
@@ -14,7 +20,17 @@ class MovimentacaoController extends Controller
      */
     public function index()
     {
-        //
+        $nome = isset($_GET['nome_completo'])? $_GET['nome_completo']:false;
+        $data = isset($_GET['created_at'])? $_GET['created_at']:false;
+        /* $funcionarios = Movimentacao::when($nome, function ($query, $nome) {
+                            return $query->where('nome_completo','like', '%'.$nome.'%');
+                        })
+                        ->when($data, function ($query, $data) {
+                            return $query->whereDate('created_at', $data);
+                        })
+                        ->paginate(3); */
+        $movimentacoes = Movimentacao::paginate(5);
+        return view('movimentacoes.index',compact('movimentacoes','nome','data'));
     }
 
     /**
@@ -24,7 +40,8 @@ class MovimentacaoController extends Controller
      */
     public function create()
     {
-        //
+        $funcionarios = Funcionario::all();
+        return view('movimentacoes.create', compact('funcionarios'));
     }
 
     /**
@@ -33,9 +50,19 @@ class MovimentacaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMovimentacao $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            MovimentacaoActions::create($request->validated());
+            FuncionarioActions::movimenta($request->validated());
+        }catch(Exception $e){
+            DB::rollBack();
+            return redirect()->route('movimentacoes.index')->withErrors($e->getMessage());
+        }
+        DB::commit();
+        return redirect()->route('movimentacoes.index')->with('success','Movimentação realizada com sucesso');
+
     }
 
     /**
