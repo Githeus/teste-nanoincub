@@ -17,7 +17,7 @@ class FuncionarioController extends Controller
         $funcionarios = Funcionario::paginate(10);
         return view('funcionarios.index',compact('funcionarios'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +25,7 @@ class FuncionarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('funcionarios.create');
     }
 
     /**

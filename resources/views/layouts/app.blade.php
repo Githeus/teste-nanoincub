@@ -73,8 +73,12 @@
         </nav>
 
         <main class="container-fluid">
-            <div class="row">
-                <div class="col-12">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-md-10">
+                    <h1 class="pt-5">
+                        @stack('title')
+                    </h1>
+                    <hr>
                     @yield('content')
                 </div>
             </div>
