@@ -7,7 +7,7 @@ use NumberFormatter;
 
 class Funcionario extends Model
 {
-    protected $fillable = ['nome_completo','login','senha','saldo_atual'];
+    protected $fillable = ['nome_completo','login','senha','saldo_atual','administrador_id'];
 
     public function saldo_formatado(){
         $fmt = new NumberFormatter( 'pt-BR', NumberFormatter::CURRENCY );

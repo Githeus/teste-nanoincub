@@ -6,6 +6,7 @@ use App\Funcionario;
 
 class FuncionarioActions{
     public static function create($inputs){
+        $inputs['administrador_id'] = auth()->user()->id;
         Funcionario::create($inputs);
     }
     public static function update($data, Funcionario $f){
