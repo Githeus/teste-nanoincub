@@ -19,8 +19,16 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios = Funcionario::paginate(3);
-        return view('funcionarios.index',compact('funcionarios'));
+        $nome = isset($_GET['nome_completo'])? $_GET['nome_completo']:false;
+        $data = isset($_GET['created_at'])? $_GET['created_at']:false;
+        $funcionarios = Funcionario::when($nome, function ($query, $nome) {
+                            return $query->where('nome_completo','like', '%'.$nome.'%');
+                        })
+                        ->when($data, function ($query, $data) {
+                            return $query->whereDate('created_at', $data);
+                        })
+                        ->paginate(3);
+        return view('funcionarios.index',compact('funcionarios','nome','data'));
     }
     
     /**

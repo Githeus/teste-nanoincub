@@ -11,29 +11,30 @@
     </div>
 
     <!-- Filtros -->
-    <div class="border p-2 col-4">
+    <form id="form-filtros" action="/funcionarios" method="get" class="border p-2 col-4">
         <h3>Filtros</h3>
         <div class="d-flex">
             <div class="flex-fill form-group bg-white d-block p-2">
                 <label class="font-weight-bold">Nome completo</label>
-                <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                <input type="text" id="nome_completo" name="nome_completo" value="{{$nome? $nome:''}}"  class="form-control" >
             </div>
             <div class="flex-fill form-group bg-white d-block p-2">
                 <label class="font-weight-bold">Data de cadastro</label>
-                <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                <input type="date" id="created_at" name="created_at" value="{{$data? $data:''}}"  class="form-control" >
             </div>
         </div>
         <nav class="nav justify-content-center">
-            <a class="btn btn-sm btn-primary nav-link active" href="#">Filtrar</a>
+            <button type="submit" class="btn btn-sm btn-primary font-weight-bold">Filtrar</button>
+            <button type="button" onclick="limpar()" class="btn btn-sm btn-danger font-weight-bold">Limpar filtros</button>
         </nav>
-    </div>
+    </form>
 
     <!-- Feedback das ações -->
     @include('components.feedback')
 
     <!-- Paginate -->
     <div class="py-2">
-        {{$funcionarios->links()}}
+        {{$funcionarios->appends(['created_at' => $data,'nome_completo'=>$nome])->links()}}
     </div>
 
     <!-- Tabela de listagem de funcionários -->
@@ -82,7 +83,17 @@
 
     <!-- Paginate -->
     <div class="py-2">
-        {{$funcionarios->links()}}
+        {{$funcionarios->appends(['created_at' => $data,'nome_completo'=>$nome])->links()}}
     </div>
-      
+
+
 @endsection
+@push('page-scripts')
+<script>
+    function limpar(){
+        $('#nome_completo').val("")
+        $('#created_at').val("")
+        $('#form-filtros').submit()
+    }
+</script>
+@endpush
