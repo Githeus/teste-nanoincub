@@ -62,9 +62,11 @@
                             <a class="dropdown-item" href="{{route('funcionarios.edit',$f)}}">
                                 Editar
                             </a>
-                            <a class="dropdown-item" href="#" style="background-color: #ffcfcf;">
-                                Excluir
-                            </a>
+                            <form action="{{route('funcionarios.destroy',$f->id)}}" method="post" onsubmit="return confirm('Você tem certeza que deseja excluir este registro?');">
+                                @csrf
+                                @method('DELETE')
+                                <button class="dropdown-item" style="background-color: #ffcfcf;">Excluir</button>
+                            </form>
                             
                         </div>
                     </div>

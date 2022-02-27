@@ -8,7 +8,7 @@
             <h1 class="text-center">
                 FUNCIONÁRIOS
             </h1>
-            <a href="#" class="btn btn-info font-weight-bold text-white mx-auto" style="max-width: 50%;">
+            <a href="/funcionarios" class="btn btn-info font-weight-bold text-white mx-auto" style="max-width: 50%;">
                 Acessar
             </a>
         </div>

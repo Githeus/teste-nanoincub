@@ -34,6 +34,15 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+                        <a href="/home" class="nav-link active">
+                            Início
+                        </a>
+                        <a href="/funcionarios" class="nav-link active">
+                            Funcionários
+                        </a>
+                        <a href="/home" class="nav-link active">
+                            Movimentações
+                        </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

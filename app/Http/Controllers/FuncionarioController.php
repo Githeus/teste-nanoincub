@@ -96,6 +96,16 @@ class FuncionarioController extends Controller
      */
     public function destroy(Funcionario $funcionario)
     {
-        //
+        DB::beginTransaction();
+
+        try{
+            $funcionario->delete();            
+        }catch(Exception $e){
+            DB::rollback();
+            return redirect()->route('funcionarios.index')->with('error','Não foi possível excluir o funcionário no momento');
+        }
+
+        DB::commit();
+        return redirect()->route('funcionarios.index')->with('success','Funcionário excluido com sucesso');
     }
 }
