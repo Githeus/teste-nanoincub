@@ -25,6 +25,7 @@
             <a class="btn btn-sm btn-primary nav-link active" href="#">Filtrar</a>
         </nav>
     </div>
+    @include('components.feedback')
     <div class="py-2">
         {{$funcionarios->links()}}
     </div>

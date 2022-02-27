@@ -7,6 +7,7 @@ use NumberFormatter;
 
 class Funcionario extends Model
 {
+    protected $fillable = ['nome_completo','login','senha','saldo_atual'];
     protected $appends = ['saldo_atual'];
 
     public function getSaldoAtualAttribute($v){
