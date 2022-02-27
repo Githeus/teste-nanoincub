@@ -11,14 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+// Redireciona para home, 
+// forçando a realizar o login como primeira ação no sistema
+Route::redirect('/', 'home');
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Rotas protegidas por autenticação 'auth'
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/funcionarios','FuncionarioController');
+    Route::resource('/movimentacoes','MovimentacaoController');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

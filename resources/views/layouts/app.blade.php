@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @stack('page-scripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -32,9 +33,20 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @auth
                     <ul class="navbar-nav mr-auto">
 
+                        <a href="/home" class="nav-link active">
+                            Início
+                        </a>
+                        <a href="/funcionarios" class="nav-link active">
+                            Funcionários
+                        </a>
+                        <a href="/movimentacoes" class="nav-link active">
+                            Movimentações
+                        </a>
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -72,8 +84,16 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
+        <main class="container-fluid">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12 col-md-10">
+                    <h1 class="pt-5">
+                        @stack('title')
+                    </h1>
+                    <hr>
+                    @yield('content')
+                </div>
+            </div>
         </main>
     </div>
 </body>
