@@ -34,4 +34,4 @@ Desenvolver um Painel Administrativo em PHP para gestão de funcionário e bonif
 ---
 # Observações do desenvolvedor para a NanoIncub
 - Primeiramente obrigado pela oportunidade independente do resultado da seleção
-- O paginate de funcionários e movimentações aparece a partir de 5 registros
+- O paginate de funcionários aparece a partir de 3 registros e em movimentações a partir de 5.
