@@ -13,4 +13,8 @@ class Funcionario extends Model
         $fmt = new NumberFormatter( 'pt-BR', NumberFormatter::CURRENCY );
         return $fmt->formatCurrency($this->saldo_atual, "BRL");
     }
+
+    public function movimentacoes(){
+        return $this->hasMany(Movimentacao::class);
+    }
 }

@@ -26,7 +26,6 @@ class MovimentacaoController extends Controller
         $funcionarios = false;
         if($nome)
             $funcionarios = Funcionario::where('nome_completo','like', '%'.$nome.'%')->pluck('id')->toArray();
-        //dd($funcionarios);
         $movimentacoes = Movimentacao::when($funcionarios, function ($query, $funcionarios) {
                             return $query->whereIn('funcionario_id',$funcionarios);
                         })
@@ -40,7 +39,6 @@ class MovimentacaoController extends Controller
                             return $query->where('tipo_movimentacao', $tipo);
                         })
                         ->paginate(5); 
-        //$movimentacoes = Movimentacao::paginate(5);
         return view('movimentacoes.index',compact('movimentacoes','nome','data','tipo'));
     }
 
@@ -74,50 +72,5 @@ class MovimentacaoController extends Controller
         DB::commit();
         return redirect()->route('movimentacoes.index')->with('success','Movimentação realizada com sucesso');
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Movimentacao  $movimentacao
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Movimentacao $movimentacao)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Movimentacao  $movimentacao
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Movimentacao $movimentacao)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Movimentacao  $movimentacao
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Movimentacao $movimentacao)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Movimentacao  $movimentacao
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Movimentacao $movimentacao)
-    {
-        //
     }
 }

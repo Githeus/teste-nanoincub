@@ -30,6 +30,17 @@ class FuncionarioController extends Controller
                         ->paginate(3);
         return view('funcionarios.index',compact('funcionarios','nome','data'));
     }
+
+    /**
+     * Apresenta o extrato de movimentações de um funcionário específico
+     *
+     * @param  \App\Funcionario  $funcionario
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Funcionario $funcionario)
+    {
+        return view('funcionarios.extrato',compact('funcionario'));
+    }
     
     /**
      * Retorna o formulário de cadastro de funcionário

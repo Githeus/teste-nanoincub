@@ -57,7 +57,7 @@
                             Ações
                         </button>
                         <div class="dropdown-menu" aria-labelledby="triggerId">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('funcionarios.show',$f)}}">
                                 Visualiza extrato
                             </a>
                             <a class="dropdown-item" href="{{route('funcionarios.edit',$f)}}">
